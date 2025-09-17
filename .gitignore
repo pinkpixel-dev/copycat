@@ -341,8 +341,9 @@ yarn-error.log*
 # Other
 scripts/publish_to_pypi.sh
 PYPI_PUBLICATION_SUMMARY.md
-PYPI_PUBLISHING_CHECKLIST.md
+PyPI_PUBLISHING_CHECKLIST.md
 
 # ==============================================================================
 # End of .gitignore
 # ==============================================================================
+
