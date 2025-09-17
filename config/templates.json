@@ -1,0 +1,250 @@
+{
+  "templates": [
+    {
+      "name": "api-key",
+      "description": "Template for API key with secure handling",
+      "category": "security",
+      "content": "{{API_KEY}}",
+      "placeholders": [
+        {
+          "name": "API_KEY",
+          "description": "Your API key",
+          "type": "sensitive",
+          "required": true
+        }
+      ],
+      "usage_count": 0,
+      "created": "2025-09-15",
+      "tags": ["api", "key", "authentication"]
+    },
+    {
+      "name": "json-schema",
+      "description": "Basic JSON schema template",
+      "category": "development",
+      "content": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"{{PROPERTY_NAME}}\": {\n      \"type\": \"{{PROPERTY_TYPE}}\",\n      \"description\": \"{{PROPERTY_DESC}}\"\n    }\n  },\n  \"required\": [\"{{PROPERTY_NAME}}\"]\n}",
+      "placeholders": [
+        {
+          "name": "PROPERTY_NAME",
+          "description": "Property name",
+          "type": "text",
+          "required": true,
+          "default": "name"
+        },
+        {
+          "name": "PROPERTY_TYPE",
+          "description": "Property type",
+          "type": "select",
+          "options": ["string", "number", "boolean", "object", "array"],
+          "default": "string"
+        },
+        {
+          "name": "PROPERTY_DESC",
+          "description": "Property description",
+          "type": "text",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "usage_count": 0,
+      "created": "2025-09-15",
+      "tags": ["json", "schema", "development"]
+    },
+    {
+      "name": "mcp-server-config",
+      "description": "MCP server configuration template",
+      "category": "development",
+      "content": "{\n  \"mcpServers\": {\n    \"{{SERVER_NAME}}\": {\n      \"command\": \"{{COMMAND}}\",\n      \"args\": [{{ARGS}}],\n      \"env\": {\n        \"{{ENV_KEY}}\": \"{{ENV_VALUE}}\"\n      }\n    }\n  }\n}",
+      "placeholders": [
+        {
+          "name": "SERVER_NAME",
+          "description": "MCP server name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "COMMAND",
+          "description": "Command to run the server",
+          "type": "text",
+          "required": true,
+          "default": "npx"
+        },
+        {
+          "name": "ARGS",
+          "description": "Command arguments (comma-separated, quoted)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "ENV_KEY",
+          "description": "Environment variable key",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "ENV_VALUE",
+          "description": "Environment variable value",
+          "type": "sensitive",
+          "required": false
+        }
+      ],
+      "usage_count": 0,
+      "created": "2025-09-15",
+      "tags": ["mcp", "server", "configuration"]
+    },
+    {
+      "name": "email-signature",
+      "description": "Professional email signature",
+      "category": "personal",
+      "content": "Best regards,\n\n{{NAME}}\n{{TITLE}}\n{{COMPANY}}\n{{EMAIL}}\n{{PHONE}}\n{{WEBSITE}}",
+      "placeholders": [
+        {
+          "name": "NAME",
+          "description": "Your full name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "TITLE",
+          "description": "Your job title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "COMPANY",
+          "description": "Company name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "EMAIL",
+          "description": "Email address",
+          "type": "email",
+          "required": true
+        },
+        {
+          "name": "PHONE",
+          "description": "Phone number",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "WEBSITE",
+          "description": "Website URL",
+          "type": "url",
+          "required": false
+        }
+      ],
+      "usage_count": 0,
+      "created": "2025-09-15",
+      "tags": ["email", "signature", "professional"]
+    },
+    {
+      "name": "sql-query",
+      "description": "Basic SQL SELECT query template",
+      "category": "database",
+      "content": "SELECT {{COLUMNS}}\nFROM {{TABLE}}\nWHERE {{CONDITIONS}}\nORDER BY {{ORDER_BY}}\nLIMIT {{LIMIT}};",
+      "placeholders": [
+        {
+          "name": "COLUMNS",
+          "description": "Columns to select",
+          "type": "text",
+          "required": true,
+          "default": "*"
+        },
+        {
+          "name": "TABLE",
+          "description": "Table name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "CONDITIONS",
+          "description": "WHERE conditions",
+          "type": "text",
+          "required": false,
+          "default": "1=1"
+        },
+        {
+          "name": "ORDER_BY",
+          "description": "ORDER BY clause",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "LIMIT",
+          "description": "LIMIT clause",
+          "type": "number",
+          "required": false,
+          "default": "10"
+        }
+      ],
+      "usage_count": 0,
+      "created": "2025-09-15",
+      "tags": ["sql", "database", "query"]
+    },
+    {
+      "name": "curl-request",
+      "description": "HTTP request using curl",
+      "category": "development",
+      "content": "curl -X {{METHOD}} \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer {{TOKEN}}\" \\\n  -d '{{DATA}}' \\\n  {{URL}}",
+      "placeholders": [
+        {
+          "name": "METHOD",
+          "description": "HTTP method",
+          "type": "select",
+          "options": ["GET", "POST", "PUT", "DELETE", "PATCH"],
+          "default": "GET"
+        },
+        {
+          "name": "URL",
+          "description": "Request URL",
+          "type": "url",
+          "required": true
+        },
+        {
+          "name": "TOKEN",
+          "description": "Authorization token",
+          "type": "sensitive",
+          "required": false
+        },
+        {
+          "name": "DATA",
+          "description": "Request body data (JSON)",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "usage_count": 0,
+      "created": "2025-09-15",
+      "tags": ["curl", "http", "api", "request"]
+    }
+  ],
+  "categories": [
+    {
+      "name": "development",
+      "description": "Development and programming templates",
+      "icon": "💻"
+    },
+    {
+      "name": "security",
+      "description": "Security-related templates",
+      "icon": "🔐"
+    },
+    {
+      "name": "personal",
+      "description": "Personal use templates",
+      "icon": "👤"
+    },
+    {
+      "name": "database",
+      "description": "Database-related templates",
+      "icon": "🗄️"
+    }
+  ],
+  "settings": {
+    "template_version": "1.0",
+    "last_updated": "2025-09-15",
+    "auto_backup": true,
+    "max_templates": 100
+  }
+}
