@@ -77,7 +77,8 @@ class DataHandler:
             'detected_types': [],
             'primary_type': 'text',
             'confidence': 0.0,
-            'metadata': {}
+            'metadata': {},
+            'sensitive': False
         }
         
         # Run all detectors
@@ -101,13 +102,25 @@ class DataHandler:
             if result:
                 analysis['detected_types'].append(result)
         
+        # Track sensitivity across all detectors
+        analysis['sensitive'] = any(
+            detector_result.get('sensitive', False)
+            for detector_result in analysis['detected_types']
+        )
+
         # Determine primary type (highest confidence)
         if analysis['detected_types']:
             primary = max(analysis['detected_types'], key=lambda x: x.get('confidence', 0))
             analysis['primary_type'] = primary['type']
             analysis['confidence'] = primary['confidence']
-            analysis['metadata'] = primary.get('metadata', {})
-        
+
+            metadata = dict(primary.get('metadata', {}))
+            if primary.get('sensitive'):
+                metadata.setdefault('sensitive', True)
+                analysis['sensitive'] = True
+
+            analysis['metadata'] = metadata
+
         return analysis
     
     def _detect_api_key(self, content: str) -> Optional[Dict[str, Any]]:
@@ -486,16 +499,18 @@ class DataHandler:
     
     def format_for_display(self, content: str, analysis: Dict[str, Any]) -> str:
         """Format content for safe display based on analysis"""
-        if analysis.get('primary_type') == 'api_key' and analysis.get('metadata', {}).get('sensitive'):
-            return analysis['metadata'].get('masked', content)
-        elif analysis.get('primary_type') == 'credit_card' and analysis.get('metadata', {}).get('sensitive'):
-            return analysis['metadata'].get('masked', content)
-        elif analysis.get('primary_type') == 'phone' and analysis.get('metadata', {}).get('sensitive'):
+        metadata = analysis.get('metadata', {})
+
+        if analysis.get('primary_type') == 'api_key' and analysis.get('sensitive'):
+            return metadata.get('masked', content)
+        elif analysis.get('primary_type') == 'credit_card' and analysis.get('sensitive'):
+            return metadata.get('masked', content)
+        elif analysis.get('primary_type') == 'phone' and analysis.get('sensitive'):
             # Mask middle digits of phone number
-            digits = analysis['metadata'].get('digits_only', content)
+            digits = metadata.get('digits_only', content)
             if len(digits) >= 10:
                 return digits[:3] + '*' * (len(digits) - 6) + digits[-3:]
-        
+
         # For very long content, truncate
         if len(content) > 200:
             return content[:200] + '...'
@@ -504,7 +519,7 @@ class DataHandler:
     
     def get_security_level(self, analysis: Dict[str, Any]) -> str:
         """Determine security level of content"""
-        if analysis.get('metadata', {}).get('sensitive'):
+        if analysis.get('sensitive'):
             return 'high'
         elif analysis.get('primary_type') in ['email', 'phone', 'ip_address']:
             return 'medium'
