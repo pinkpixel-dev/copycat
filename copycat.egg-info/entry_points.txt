@@ -1,0 +1,4 @@
+[console_scripts]
+copycat = copycat.cli:main
+copycat-gui = copycat.gui:main
+copycat-tray = copycat.system_tray:main

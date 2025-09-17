@@ -1,0 +1,2 @@
+# CopyCat has no required third-party Python packages.
+# System integrations rely on xclip, xdotool, and notify-send being installed separately.

@@ -1,6 +1,6 @@
-# 📋 Changelog
+# 🐾 Changelog
 
-All notable changes to the Clipboard Helper project will be documented in this file.
+All notable changes to the CopyCat project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GUI interface creation
 - Advanced features implementation
 - Installation and desktop integration
+
+### Changed
+- Rebranded the project as **CopyCat** with packaged assets and entry points
 
 ## [1.0.0] - 2025-09-15
 
@@ -29,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - HTTP curl requests
 - Project directories organized for:
   - `/bin` - Main executables
-  - `/lib` - Python library modules
+  - `/copycat` - Python package modules
   - `/config` - Configuration files and templates
   - `/docs` - Documentation
   - `/templates` - User template files
