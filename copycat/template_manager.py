@@ -17,6 +17,7 @@ from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, asdict
 from pathlib import Path
 import uuid
+from importlib import resources
 
 @dataclass
 class TemplateUsage:
@@ -47,15 +48,35 @@ class TemplateManager:
         self.placeholder_pattern = re.compile(r'\{\{(\w+)\}\}')
     
     def _load_templates(self) -> Dict[str, Any]:
-        """Load templates from JSON file"""
+        """Load templates from built-in resources and user file"""
+        # Start with built-in templates from package resources
+        builtin_data = self._load_builtin_templates()
+        
+        # Load user templates if they exist
+        user_data = {"templates": [], "categories": [], "settings": {}}
         try:
             if self.templates_file.exists():
                 with open(self.templates_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            else:
-                return {"templates": [], "categories": [], "settings": {}}
+                    user_data = json.load(f)
         except Exception as e:
-            print(f"Error loading templates: {e}")
+            print(f"Error loading user templates: {e}")
+        
+        # Merge built-in and user templates
+        merged_data = {
+            "templates": builtin_data.get("templates", []) + user_data.get("templates", []),
+            "categories": builtin_data.get("categories", []) + user_data.get("categories", []),
+            "settings": {**builtin_data.get("settings", {}), **user_data.get("settings", {})}
+        }
+        
+        return merged_data
+    
+    def _load_builtin_templates(self) -> Dict[str, Any]:
+        """Load built-in templates from package resources"""
+        try:
+            with resources.files("copycat.resources").joinpath("templates.json").open("r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Warning: Could not load built-in templates: {e}")
             return {"templates": [], "categories": [], "settings": {}}
     
     def _load_usage(self) -> Dict[str, TemplateUsage]:
@@ -75,10 +96,33 @@ class TemplateManager:
             return {}
     
     def _save_templates(self) -> bool:
-        """Save templates to JSON file with backup"""
+        """Save user templates to JSON file with backup (built-in templates are not saved)"""
         try:
-            # Create backup
-            if self.templates_file.exists():
+            # Load built-in templates to identify user-created ones
+            builtin_data = self._load_builtin_templates()
+            builtin_names = {t["name"] for t in builtin_data.get("templates", [])}
+            
+            # Filter out built-in templates, keep only user-created ones
+            user_templates = [
+                t for t in self.templates_data.get("templates", [])
+                if t.get("name") not in builtin_names
+            ]
+            
+            # Filter out built-in categories
+            builtin_category_names = {c["name"] for c in builtin_data.get("categories", [])}
+            user_categories = [
+                c for c in self.templates_data.get("categories", [])
+                if c.get("name") not in builtin_category_names
+            ]
+            
+            user_data = {
+                "templates": user_templates,
+                "categories": user_categories,
+                "settings": {**self.templates_data.get("settings", {}), "last_updated": datetime.datetime.now().isoformat()}
+            }
+            
+            # Create backup if user templates exist
+            if self.templates_file.exists() and user_templates:
                 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                 backup_path = self.backups_dir / f"templates_backup_{timestamp}.json"
                 shutil.copy2(self.templates_file, backup_path)
@@ -89,10 +133,14 @@ class TemplateManager:
                     for backup in backups[:-10]:
                         backup.unlink()
             
-            # Save current templates
-            self.templates_data["settings"]["last_updated"] = datetime.datetime.now().isoformat()
-            with open(self.templates_file, 'w', encoding='utf-8') as f:
-                json.dump(self.templates_data, f, indent=2, ensure_ascii=False)
+            # Save user templates only
+            if user_templates or user_categories:
+                with open(self.templates_file, 'w', encoding='utf-8') as f:
+                    json.dump(user_data, f, indent=2, ensure_ascii=False)
+            elif self.templates_file.exists():
+                # Remove user templates file if no user templates exist
+                self.templates_file.unlink()
+            
             return True
         except Exception as e:
             print(f"Error saving templates: {e}")
