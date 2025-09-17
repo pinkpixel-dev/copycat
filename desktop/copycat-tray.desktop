@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=CopyCat Tray
+GenericName=Clipboard System Tray
+Comment=CopyCat clipboard manager in system tray
+Exec=copycat-tray
+Icon=copycat
+Terminal=false
+Categories=Utility;System;
+Keywords=clipboard;tray;system;background;
+StartupNotify=false
+StartupWMClass=CopyCat-Tray
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+X-Desktop-File-Install-Version=0.26

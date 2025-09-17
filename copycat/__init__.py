@@ -7,6 +7,6 @@ __all__ = [
 ]
 
 try:
-    __version__ = version("copycat")
+    __version__ = version("copycat-clipboard")
 except PackageNotFoundError:  # pragma: no cover - fallback for local usage
-    __version__ = "1.0.0"
+__version__ = "1.0.1"

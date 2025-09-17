@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=CopyCat
+GenericName=Clipboard Manager
+Comment=Advanced Linux clipboard utility that bypasses paste restrictions
+Exec=copycat-gui
+Icon=copycat
+Terminal=false
+Categories=Utility;System;Office;
+Keywords=clipboard;copy;paste;productivity;automation;virtual-keyboard;
+StartupNotify=true
+StartupWMClass=CopyCat
+MimeType=text/plain;text/x-python;application/json;
+X-Desktop-File-Install-Version=0.26
+X-AppStream-Ignore=false

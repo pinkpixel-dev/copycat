@@ -1,10 +1,12 @@
 # 🐾 CopyCat - Project Overview
 
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 **Release Date:** September 17, 2025  
+**PyPI Publication:** September 17, 2025 🎉  
 **Author:** Pink Pixel  
 **License:** Apache 2.0  
 **Platform:** Linux  
+**Installation:** `pip install copycat-linux`
 
 *Made with ❤️ by Pink Pixel - Dream it, Pixel it ✨*
 
@@ -183,16 +185,24 @@ open_gui = Ctrl+Alt+V
 ## 🛠️ Development Workflow
 
 ### **Installation Methods**
+
+#### **PyPI Installation (Recommended) 🎉**
 ```bash
-# Quick installation
-git clone <repository-url>
+# One-command installation from PyPI
+pip install copycat-linux
+```
+
+#### **Development Installation**
+```bash
+# Clone repository for development
+git clone https://github.com/pinkpixel-dev/copycat.git
 cd copycat
-pip install .
+pip install -e .     # Editable installation
+```
 
-# Development installation
-pip install -e .
-
-# Guided setup (recommended)
+#### **Guided Setup (Alternative)**
+```bash
+# Interactive setup with virtual environment
 ./scripts/setup_copycat.sh
 ```
 
@@ -264,7 +274,14 @@ copycat --gui                    # Launch GUI interface
 
 ---
 
-## 📈 Current Status (v1.0.0)
+## 📈 Current Status (v1.0.1) 🎉
+
+### **🚀 MAJOR MILESTONE: PyPI Publication**
+✅ **Published to PyPI** as `copycat-linux`  
+✅ **Worldwide availability** via `pip install copycat-linux`  
+✅ **All entry points working** from PyPI installation  
+✅ **GUI improvements** - Fixed emoji compatibility and font rendering  
+✅ **Enhanced cross-platform support** - Better Linux distribution compatibility  
 
 ### **Completed Features**
 ✅ Core clipboard operations with fallback methods  
@@ -277,7 +294,7 @@ copycat --gui                    # Launch GUI interface
 ✅ Smart content detection and data type recognition  
 ✅ Security features for sensitive data handling  
 ✅ Cross-platform compatibility (X11/Wayland)  
-✅ Desktop integration with keyboard shortcuts  
+✅ Desktop integration with keyboard shortcuts
 
 ### **Documentation Status**
 ✅ README.md - Comprehensive user guide  
@@ -341,4 +358,4 @@ Based on CHANGELOG.md planning notes:
 
 ---
 
-*This overview was generated on September 17, 2025, documenting CopyCat v1.0.0*
+*This overview was updated on September 17, 2025, documenting CopyCat v1.0.1 - now available on PyPI! 🎉*

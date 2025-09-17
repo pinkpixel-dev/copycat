@@ -3,18 +3,23 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "copycat"
-version = "1.0.0"
-description = "Linux clipboard utility that types around paste restrictions."
+name = "copycat-linux"
+version = "1.0.1"
+description = "Advanced Linux clipboard utility that bypasses paste restrictions using virtual keyboard typing"
 readme = "README.md"
 requires-python = ">=3.9"
-keywords = ["clipboard", "linux", "productivity", "automation"]
-license = { file = "LICENSE" }
-authors = [{ name = "Pink Pixel" }]
+keywords = ["clipboard", "linux", "productivity", "automation", "virtual-keyboard", "paste-bypass", "tkinter", "gui"]
+license = "Apache-2.0"
+authors = [
+    { name = "Pink Pixel", email = "admin@pinkpixel.dev" }
+]
+maintainers = [
+    { name = "Pink Pixel", email = "admin@pinkpixel.dev" }
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
-    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -22,7 +27,11 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Utilities",
+    "Topic :: Desktop Environment",
+    "Topic :: System :: Systems Administration",
+    "Environment :: X11 Applications",
 ]
 
 dependencies = []
@@ -31,23 +40,40 @@ dependencies = []
 tray = ["pystray>=0.19.5"]
 
 [project.urls]
-Homepage = "https://github.com/<your-org>/copycat"
-Changelog = "https://github.com/<your-org>/copycat/blob/main/CHANGELOG.md"
-Issues = "https://github.com/<your-org>/copycat/issues"
+Homepage = "https://github.com/pinkpixel-dev/copycat"
+Documentation = "https://github.com/pinkpixel-dev/copycat#readme"
+Changelog = "https://github.com/pinkpixel-dev/copycat/blob/main/CHANGELOG.md"
+Issues = "https://github.com/pinkpixel-dev/copycat/issues"
+Repository = "https://github.com/pinkpixel-dev/copycat.git"
+"Bug Reports" = "https://github.com/pinkpixel-dev/copycat/issues"
+"Funding" = "https://www.buymeacoffee.com/pinkpixel"
 
 [project.scripts]
 copycat = "copycat.cli:main"
 copycat-gui = "copycat.gui:main"
 copycat-tray = "copycat.system_tray:main"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["copycat*"]
+exclude = ["tests*"]
+
 [tool.setuptools]
-packages = ["copycat"]
 include-package-data = true
 
 [tool.setuptools.package-data]
 copycat = [
   "assets/*.png",
+  "assets/*.ico", 
   "resources/*.json",
   "resources/*.conf",
   "py.typed",
 ]
+
+# This ensures the package includes all necessary files
+[tool.setuptools.package-dir]
+copycat = "copycat"
+
+# Exclude development files
+[tool.setuptools.exclude-package-data]
+"*" = ["tests", "*.pyc", "__pycache__", "*.egg-info"]

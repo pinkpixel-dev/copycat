@@ -8,13 +8,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planning
-- Core clipboard functionality development
-- GUI interface creation
-- Advanced features implementation
-- Installation and desktop integration
+- Future enhancements based on user feedback
+- Additional template categories
+- Performance optimizations
 
-### Changed
-- Rebranded the project as **CopyCat** with packaged assets and entry points
+## [1.0.1] - 2025-09-17 🎉 **PUBLISHED TO PyPI**
+
+### 🚀 Major Milestone
+- **Successfully published to PyPI** as `copycat-linux`
+- Package now available worldwide via `pip install copycat-linux`
+- All entry points working: `copycat`, `copycat-gui`, `copycat-tray`
+
+### 🎨 GUI Improvements
+- **Fixed emoji compatibility issues** - Removed paw emojis (🐾) causing display problems
+- **Improved text layout** - Fixed tagline wrapping and overflow in GUI header
+- **Enhanced font compatibility** - Added fallback fonts (Arial/Courier) for systems without Segoe UI/Consolas
+- **Better cross-platform support** - Keyboard emoji (🎹) replaced with universal symbol (⌨)
+- **Optimized subtitle display** - Multi-line layout prevents text cutoff
+
+### 📦 Package Management
+- **Package name changed** from `copycat-clipboard` to `copycat-linux` (original name was taken)
+- **Test PyPI validation** - Thoroughly tested installation and functionality
+- **Authentication resolved** - Fixed PyPI upload credentials and permissions
+- **Quality assurance** - All twine checks passed, proper metadata included
+
+### 🔧 Technical Improvements
+- **Font rendering** - Improved cross-distribution compatibility
+- **Window sizing** - Better handling of GUI layout on different screen configurations
+- **Resource packaging** - All assets properly included in distribution
+- **Entry point validation** - Confirmed all CLI/GUI commands work from PyPI installation
 
 ## [1.0.0] - 2025-09-15
 

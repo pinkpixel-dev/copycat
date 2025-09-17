@@ -264,6 +264,8 @@ For Warp Settings Issue:
     parser.add_argument("--gui", action="store_true", help="Launch GUI interface")
     parser.add_argument("--status", action="store_true", help="Show system status")
     parser.add_argument("--setup", action="store_true", help="Create user configuration")
+    parser.add_argument("--install-desktop", action="store_true", help="Install desktop integration")
+    parser.add_argument("--uninstall-desktop", action="store_true", help="Remove desktop integration")
     parser.add_argument("--quiet", "-q", action="store_true", help="Suppress banner output")
     parser.add_argument(
         "--version",
@@ -336,6 +338,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         success = app.launch_gui()
     elif args.status:
         app.show_status()
+    elif args.install_desktop:
+        from .desktop_integration import install_desktop_integration
+        success = install_desktop_integration()
+    elif args.uninstall_desktop:
+        from .desktop_integration import uninstall_desktop_integration
+        success = uninstall_desktop_integration()
     else:
         parser.print_help()
         return 0

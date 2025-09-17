@@ -27,9 +27,14 @@ from .template_manager import AdvancedTemplateManager
 class ModernButton(tk.Button):
     """Modern styled button with hover effects"""
     def __init__(self, parent, **kwargs):
-        # Default modern styling
+        # Default modern styling with font fallbacks
+        try:
+            button_font = ('Segoe UI', 10, 'normal')
+        except:
+            button_font = ('Arial', 10, 'normal')
+        
         default_style = {
-            'font': ('Segoe UI', 10, 'normal'),
+            'font': button_font,
             'relief': 'flat',
             'borderwidth': 0,
             'padx': 20,
@@ -261,7 +266,7 @@ class CopyCatGUI:
 
     def setup_window(self):
         """Configure main window"""
-        self.root.title("🐾 CopyCat")
+        self.root.title("CopyCat")
         self.root.geometry("800x600")
         self.root.minsize(600, 400)
 
@@ -309,21 +314,32 @@ class CopyCatGUI:
         )
         
         # Configure other widgets
+        # Configure fonts with fallbacks for cross-platform compatibility
+        try:
+            title_font = ('Segoe UI', 16, 'bold')
+            subtitle_font = ('Segoe UI', 10)
+            status_font = ('Consolas', 9)
+        except:
+            # Fallback fonts for systems without Segoe UI/Consolas
+            title_font = ('Arial', 16, 'bold')
+            subtitle_font = ('Arial', 10)
+            status_font = ('Courier', 9)
+        
         self.style.configure(
             'Title.TLabel',
-            font=('Segoe UI', 16, 'bold'),
+            font=title_font,
             foreground=self.colors['text_primary'],
             background=self.colors['window_bg']
         )
         self.style.configure(
             'Subtitle.TLabel',
-            font=('Segoe UI', 12),
+            font=subtitle_font,
             foreground=self.colors['text_secondary'],
             background=self.colors['window_bg']
         )
         self.style.configure(
             'Status.TLabel',
-            font=('Consolas', 9),
+            font=status_font,
             foreground=self.colors['status_fg'],
             background=self.colors['status_bg']
         )
@@ -384,12 +400,16 @@ class CopyCatGUI:
         text_frame = self.themed_frame(content_frame, color_key='window_bg')
         text_frame.pack(side='left', fill='x', expand=True)
 
-        ttk.Label(text_frame, text="🐾 CopyCat", style='Title.TLabel').pack(anchor='w')
-        ttk.Label(
+        ttk.Label(text_frame, text="CopyCat", style='Title.TLabel').pack(anchor='w')
+        # Create subtitle with proper text wrapping
+        subtitle_text = "Advanced Linux clipboard utility that bypasses paste restrictions\nusing virtual keyboard typing"
+        subtitle_label = ttk.Label(
             text_frame,
-            text="Linux clipboard utility for solving copy-paste issues in web-based UIs",
-            style='Subtitle.TLabel'
-        ).pack(anchor='w')
+            text=subtitle_text,
+            style='Subtitle.TLabel',
+            justify='left'
+        )
+        subtitle_label.pack(anchor='w', pady=(5, 0))
     
     def create_quick_actions(self, parent):
         """Create quick action buttons"""
@@ -413,7 +433,7 @@ class CopyCatGUI:
         # Main action buttons
         self.type_delayed_btn = ModernButton(
             btn_frame,
-            text="🎹 Type Clipboard (Delayed)",
+            text="⌨ Type Clipboard (Delayed)",
             bg='#28a745',
             fg='white',
             font=('Segoe UI', 11, 'bold'),
@@ -1106,7 +1126,7 @@ class CopyCatGUI:
         # Virtual keyboard status
         self.keyboard_status = ttk.Label(
             self.status_bar,
-            text="🎹 Virtual Keyboard: Checking...",
+            text="⌨ Virtual Keyboard: Checking...",
             style='Status.TLabel'
         )
         self.keyboard_status.pack(side='right', padx=10, pady=5)
@@ -1117,9 +1137,9 @@ class CopyCatGUI:
     def update_keyboard_status(self):
         """Update virtual keyboard status"""
         if self.keyboard.is_available():
-            self.keyboard_status.config(text="🎹 Virtual Keyboard: Ready ✅", foreground='#28a745')
+            self.keyboard_status.config(text="⌨ Virtual Keyboard: Ready ✅", foreground='#28a745')
         else:
-            self.keyboard_status.config(text="🎹 Virtual Keyboard: Not Available ❌", foreground='#dc3545')
+            self.keyboard_status.config(text="⌨ Virtual Keyboard: Not Available ❌", foreground='#dc3545')
     
     def start_clipboard_monitor(self):
         """Start monitoring clipboard changes"""
@@ -1241,7 +1261,7 @@ class CopyCatGUI:
                 time.sleep(1)
             
             # Start typing
-            self.root.after(0, lambda: self.countdown_label.config(text="🎹 Typing now!"))
+            self.root.after(0, lambda: self.countdown_label.config(text="⌨ Typing now!"))
             
             content = self.clipboard.get()
             success = self.keyboard.type_text(content, delay=50)
@@ -1400,7 +1420,7 @@ class CopyCatGUI:
             status_info = []
             
             # Basic info
-            status_info.append("🐾 CopyCat Status")
+            status_info.append("CopyCat Status")
             status_info.append("=" * 40)
             status_info.append(f"Version: {__version__}")
             status_info.append("")

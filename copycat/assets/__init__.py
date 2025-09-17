@@ -1,0 +1,1 @@
+"""CopyCat assets package containing icons and images."""

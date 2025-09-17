@@ -28,23 +28,15 @@ CopyCat is your all-in-one clipboard utility for Linux. It crushes copy-paste he
 
 ## 🛠️ Installation
 
-### Quick Install
+### 🎉 PyPI Installation (Recommended)
+
+**CopyCat is now available on PyPI!** Install with a single command:
 
 ```bash
-git clone https://github.com/<your-org>/copycat.git
-cd copycat
-pip install .
+pip install copycat-linux
 ```
 
-### Guided Setup
-
-Prefer interactive? Run:
-
-```bash
-./scripts/setup_copycat.sh
-```
-
-Choose `pip`, `uv`, or `conda`—the script builds a virtual environment, installs dependencies, and registers CopyCat.
+That's it! All commands (`copycat`, `copycat-gui`, `copycat-tray`) are now available system-wide.
 
 ### Manual Dependencies (Ubuntu/Mint)
 
@@ -52,6 +44,26 @@ Choose `pip`, `uv`, or `conda`—the script builds a virtual environment, instal
 sudo apt update
 sudo apt install xclip xdotool python3-tk libnotify-bin
 ```
+
+### Development Installation
+
+For development or to get the latest features:
+
+```bash
+git clone https://github.com/pinkpixel-dev/copycat.git
+cd copycat
+pip install -e .
+```
+
+### Guided Setup (Alternative)
+
+Prefer interactive installation? Clone the repo and run:
+
+```bash
+./scripts/setup_copycat.sh
+```
+
+Choose `pip`, `uv`, or `conda`—the script builds a virtual environment, installs dependencies, and registers CopyCat.
 
 ## 📖 Usage
 
@@ -156,7 +168,11 @@ Apache 2.0 – see [LICENSE](LICENSE).
 
 ## 🏷️ Version
 
-**1.0.0 – Released September 17, 2025**
+**1.0.1 – Published to PyPI September 17, 2025** 🎉
+
+- 📦 **Available on PyPI**: `pip install copycat-linux`
+- 🎨 **GUI improvements**: Fixed emoji compatibility and font rendering
+- ✨ **Enhanced cross-platform support**: Better compatibility across Linux distributions
 
 ---
 
